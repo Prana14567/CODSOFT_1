@@ -1,28 +1,29 @@
 import streamlit as st
-import joblib
 import pandas as pd
-import numpy as np
+import joblib
 
 
-model = joblib.load("random_forest.pkl")
-scaler = joblib.load("scaler.pkl")
-expected_cols = joblib.load("expected_columns.pkl") 
+model = joblib.load("final_model.pkl")
 
-st.title("🎬 Movie Rating Predictor")
+scaler=joblib.load("scaler.pkl")
+training_columns = joblib.load("training_columns.pkl")  # <-- create this during training!
 
+# App title
+st.title("🎬 Movie Rating Prediction")
 
-duration = st.number_input("Duration (in minutes)", min_value=30, max_value=300, step=1)
+# Input fields
+duration = st.number_input("Duration (minutes)", min_value=30, max_value=300)
 votes = st.number_input("Number of Votes", min_value=0)
-year = st.number_input("Release Year", min_value=1900, max_value=2100)
-genre = st.text_input("Genre (e.g., Action, Drama)")
+year = st.number_input("Release Year", min_value=1900, max_value=2025)
+genre = st.text_input("Genre (e.g., Action, Comedy)")
 director = st.text_input("Director Name")
 actor1 = st.text_input("Actor 1")
 actor2 = st.text_input("Actor 2")
 actor3 = st.text_input("Actor 3")
 
-
+# Prediction logic
 if st.button("Predict Rating"):
-    
+    # Create input dataframe
     input_dict = {
         "Duration": [duration],
         "Votes": [votes],
@@ -35,20 +36,12 @@ if st.button("Predict Rating"):
     }
     input_df = pd.DataFrame(input_dict)
 
-
-   
+    # One-hot encode input features
     input_df = pd.get_dummies(input_df)
 
-   
-    for col in expected_cols:
-        if col not in input_df.columns:
-            input_df[col] = 0
-    input_df = input_df[expected_cols]  # Reorder columns
+    # Reindex to match training columns
+    input_df = input_df.reindex(columns=training_columns, fill_value=0)
 
-    
-    numeric_cols = ["Duration", "Votes", "Year"]
-    input_df[numeric_cols] = scaler.transform(input_df[numeric_cols])
-
-    # Predict rating
-    prediction = model.predict(input_df)[0]
-    st.success(f"🎯 Predicted Movie Rating: {round(prediction, 2)} ⭐")
+    # Make prediction
+    rating_pred = model.predict(input_df)[0]
+    st.success(f"🎯 Predicted Movie Rating: {round(rating_pred, 2)}")
