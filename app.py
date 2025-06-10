@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-model = joblib.load("movie_rating_model.pkl")
+model = joblib.load("random_forest.pkl")
 scaler = joblib.load("scaler.pkl")
 expected_cols = joblib.load("expected_columns.pkl") 
 
