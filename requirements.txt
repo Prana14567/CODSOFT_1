@@ -1,0 +1,6 @@
+strealit
+pandas
+numpy
+joblib
+matplotlib
+seaborn
