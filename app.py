@@ -34,7 +34,7 @@ if st.button("Predict Rating"):
         "Actor 3": [actor3]
     }
     input_df = pd.DataFrame(input_dict)
-expected_cols = model.feature_names_in_
+
 
    
     input_df = pd.get_dummies(input_df)
