@@ -1,3 +1,0 @@
-import joblib
-
-joblib.dump(X.columns.tolist(), "expected_columns.pkl")

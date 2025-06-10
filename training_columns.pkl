@@ -1,0 +1,2 @@
+import joblib
+joblib.dump(X.columns.tolist(), "training_columns.pkl")
