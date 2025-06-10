@@ -4,7 +4,7 @@ import joblib
 
 # Load the trained regression model
 model = joblib.load("random_forest.pkl")
-
+scaler= joblib.load("scaler.pkl")
 # Define all expected columns exactly as used in training
 expected_columns = [
     'Year', 'Duration', 'Votes',
