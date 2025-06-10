@@ -2,6 +2,6 @@ from sklearn.ensemble import RandomForestRegressor
 import joblib
 
 model = RandomForestRegressor()
-model.fit(X_train, y_train)
+model.fit(X_train_scaled, y_train)
 
 joblib.dump(model, "random_forest.pkl")
