@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 
-model = joblib.load("final_model.pkl")
+model = joblib.load("random_forest.pkl")
 
 scaler=joblib.load("scaler.pkl")
 training_columns = joblib.load("training_columns.pkl")  # <-- create this during training!
