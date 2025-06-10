@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Load the trained regression model
-model = joblib.load("final_model.pkl")
+model = joblib.load("random_forest.pkl")
 
 # Define all expected columns exactly as used in training
 expected_columns = [
